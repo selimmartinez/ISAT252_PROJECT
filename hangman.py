@@ -11,3 +11,6 @@ WORDS = ("hello c", "pythonian", "javascripter", "boolean", "hello world",
 		"code reader", "socializer", "commando", "caffeinator", "sublime")
 word = random.choice(WORDS)
 
+def pick_word():
+	return "pythonian"
+
