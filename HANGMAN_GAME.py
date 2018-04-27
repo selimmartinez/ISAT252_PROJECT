@@ -1,6 +1,5 @@
-"""Hangman
-Standard game of Hangman. A word is chosen at random from a list and the
-user must guess the word letter by letter before running out of attempts."""
+#HANGMAN_GAME.py
+# 
 
 import random
 
@@ -17,18 +16,16 @@ def main():
     while play_again:
         
 
-        words = ["python", "java", "integrated", "socializer"
+        wordList = ["python", "java", "integrated", "socializer"
                  "pythonian", "benton", "pneumonoultramicroscopicsilicovolcanoconiosis", 
                  "javascript", "programming", "computer", "carrier", "quiz", "luxembourg"
                  "boat", "solipsism", "jazz", "rhythm"]
 
-        chosen_word = random.choice(words).lower()
+        secret_word = random.choice(wordList).lower()
         player_guess = None 
         guessed_letters = [] 
-        word_guessed = []
-        for letter in chosen_word:
-            word_guessed.append("-") 
-        joined_word = None 
+        word_guessed = [] 
+        letter_storage = None 
 
         HANGMAN = (
 """
@@ -167,11 +164,13 @@ def main():
         print(HANGMAN[0])
         attempts = len(HANGMAN) - 1
 
+        for letter in secret_word:
+            word_guessed.append("-")
 
         while (attempts != 0 and "-" in word_guessed):
             print(("\nYou have {} attempts remaining").format(attempts))
-            joined_word = "".join(word_guessed)
-            print(joined_word)
+            letter_storage = "".join(word_guessed)
+            print(letter_storage)
 
             try:
                 player_guess = str(input("\nPlease select a letter between A-Z" + "\n> ")).lower()
@@ -193,18 +192,18 @@ def main():
 
             guessed_letters.append(player_guess)
  
-            for letter in range(len(chosen_word)):
-                if player_guess == chosen_word[letter]:
+            for letter in range(len(secret_word)):
+                if player_guess == secret_word[letter]:
                     word_guessed[letter] = player_guess 
                     
-            if player_guess not in chosen_word:
+            if player_guess not in secret_word:
                 attempts -= 1
                 print(HANGMAN[(len(HANGMAN) - 1) - attempts])
 
         if "-" not in word_guessed: 
-            print(("\nCongratulations! {} was the word").format(chosen_word))
+            print(("\nCongratulations! {} was the word").format(secret_word))
         else: 
-            print(("\nUnlucky! The word was {}.").format(chosen_word))
+            print(("\nSorry! The word was {}. Poor Jimmy gets it!").format(secret_word))
 
         print("\nWould you like to play again?")
 
@@ -212,4 +211,5 @@ def main():
         if response not in ("yes", "y"):
             play_again = False
 
-
+if __name__ == "__main__":
+    main()
